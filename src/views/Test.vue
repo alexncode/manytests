@@ -27,13 +27,12 @@ export default {
     };
   },
   created: function() {
-    const tests = JSON.parse(window.localStorage.getItem("tests"));
-    for (let i = 0; i < tests.length; i++) {
-      if (tests[i].url === this.$route.params.name) {
-        this.name = tests[i].name;
-        this.questions = tests[i].questions;
-      }
-    }
+    // const tests = JSON.parse(window.localStorage.getItem("tests"));
+    const tests = this.$root.store.tests;
+    const slug = this.$route.params.name;
+
+    this.name = tests[slug].name;
+    this.questions = tests[slug].questions;
     this.answers = Array(this.questions.length);
   },
   methods: {

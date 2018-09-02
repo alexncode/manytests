@@ -1,8 +1,8 @@
 <template>
   <div class="create">
     <h1>{{ title }}</h1>
-    <TestForm v-if='state === 1' @create-test="processTest" :test='testData'/>
-    <QuestionsForm v-if='state === 2' :questions='testData.questions' @save-questions='processQuestions'/>
+    <TestForm v-if='state === 1' @create-test="processTest"/>
+    <QuestionsForm v-if='state === 2' :slug='slug' @all-done='processQuestions'/>
     <div v-if='state == 3' class="success">Success!</div>
   </div>
 </template>
@@ -20,18 +20,17 @@ export default {
   data() {
     return {
       title: `You can ${this.$route.name} test here`,
-      currentQuestion: 1,
-      testData: {},
-      state: 1
+      state: 1,
+      slug: ""
     };
   },
   created() {
-    const tests = JSON.parse(window.localStorage.getItem("tests"));
-    for (let i = 0; i < tests.length; i++) {
-      if (tests[i].url === this.$route.params.name) {
-        this.testData = tests[i];
-      }
-    }
+    // const tests = JSON.parse(window.localStorage.getItem("tests"));
+    // for (let i = 0; i < tests.length; i++) {
+    //   if (tests[i].url === this.$route.params.name) {
+    //     this.testData = tests[i];
+    //   }
+    // }
   },
   watch: {
     $route(to) {
@@ -39,22 +38,12 @@ export default {
     }
   },
   methods: {
-    processTest: function(test_obj) {
-      this.testData = test_obj;
-      if (!this.testData.questions) {
-        this.testData.questions = Array(this.testData.numberOfQuestions);
-      }
+    processTest: function(slug) {
+      this.slug = slug;
       this.state++;
     },
-    processQuestions: function(questions) {
+    processQuestions: function() {
       this.state++;
-      this.testData.questions = questions;
-      this.saveTest();
-    },
-    saveTest: function() {
-      let allTest = JSON.parse(window.localStorage.getItem("tests"));
-      allTest.push(this.testData);
-      window.localStorage.setItem("tests", JSON.stringify(allTest));
     }
   }
 };

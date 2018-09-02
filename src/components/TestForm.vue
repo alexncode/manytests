@@ -42,23 +42,31 @@
 <script>
 export default {
   name: "TestForm",
-  props: {
-    test: {
-      default: () => {
-        return {
-          name: "",
-          description: "",
-          url: "",
-          numberOfQuestions: "",
-          numberOfAnswers: "1",
-          color: "#fff"
-        };
-      }
-    }
-  },
+  // props: {
+  //   test: {
+  //     default: () => {
+  //       return {
+  //         name: "",
+  //         description: "",
+  //         url: "",
+  //         numberOfQuestions: "",
+  //         numberOfAnswers: "1",
+  //         color: "#fff"
+  //       };
+  //     }
+  //   }
+  // },
   data() {
     return {
       type: "",
+      test: {
+        name: "",
+        description: "",
+        url: "",
+        numberOfQuestions: "",
+        numberOfAnswers: "1",
+        color: "#fff"
+      },
       error: {
         name: "",
         description: "",
@@ -86,7 +94,8 @@ export default {
       //   this.error.a_number = "Number of answers should be more than 0";
       // }
       this.test.url = slugify(this.test.name);
-      this.$emit("create-test", this.test);
+      this.$root.store.tests[this.test.url] = this.test;
+      this.$emit("create-test", this.test.url);
     },
     validateName() {
       if (this.test.name.length > 5) {

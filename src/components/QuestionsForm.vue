@@ -1,7 +1,7 @@
 <template>
   <div class="questions-form">
     <SQForm :questionNumber='currentQuestion'  
-            :question='questions[currentQuestion - 1]'
+            :slug='slug'
             @nextQuestion='nextQuestion'/>
   </div>
 </template>
@@ -15,19 +15,25 @@ export default {
     SQForm
   },
   props: {
-    questions: Array
+    slug: ""
   },
   data() {
     return {
-      currentQuestion: 1
+      currentQuestion: 1,
+      test: {}
     };
   },
+  created() {
+    this.test = this.$root.store.tests[this.slug];
+    this.test.questions = this.test.questions
+      ? this.test.questions
+      : Array(this.test.numberOfQuestions);
+  },
   methods: {
-    nextQuestion: function(val, inc) {
-      this.questions[this.currentQuestion - 1] = val;
+    nextQuestion: function(inc) {
       this.currentQuestion += inc;
-      if (this.currentQuestion > this.questions.length) {
-        this.$emit("save-questions", this.questions);
+      if (this.currentQuestion > this.test.numberOfQuestions) {
+        this.$emit("all-done");
       }
     }
   }

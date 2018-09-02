@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <TestCard v-for='(test, key) in tests' 
+    <TestCard v-for='(test, key) in $root.store.tests' 
               v-bind:key='key' 
               v-bind:test='test'
               v-bind:mode='mode'/>
@@ -27,7 +27,7 @@ export default {
     };
   },
   created: function() {
-    this.tests = JSON.parse(window.localStorage.getItem("tests"));
+    // this.tests = JSON.parse(window.localStorage.getItem("tests"));
   }
 };
 </script>

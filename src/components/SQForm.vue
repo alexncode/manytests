@@ -2,9 +2,9 @@
   <div class="question-form">
     <h3 class="question-title">Question {{questionNumber}}</h3>
     <label for="question">Question</label>
-    <textarea id='question' type="text" rows="10" v-model="question.text"></textarea>
+    <textarea id='question' type="text" rows="10" v-model="text"></textarea>
     <label for="answer">Answer</label>
-    <input id='answer' type="text" v-model="question.answer">
+    <input id='answer' type="text" v-model="answer">
     <div class="buttons">
       <div class="btn btn-left" @click="nextQuestion(-1)">Previous</div>
       <div class="btn btn-right" @click="nextQuestion(1)">Next</div>
@@ -16,19 +16,31 @@
 export default {
   name: "QuestionForm",
   props: {
-    question: {
-      default: () => {
-        return {
-          text: "",
-          answer: ""
-        };
-      }
-    },
-    questionNumber: Number
+    questionNumber: Number,
+    slug: ""
+  },
+  data() {
+    return {
+      text: "",
+      answer: ""
+    };
+  },
+  created() {
+    this.question = this.$root.store.tests[this.slug].questions[
+      this.questionNumber - 1
+    ];
+    if (this.question) {
+      this.text = this.question.text;
+      this.question = this.question.question;
+    }
   },
   methods: {
     nextQuestion: function(val) {
-      this.$emit("nextQuestion", this.question, val);
+      this.$root.store.tests[this.slug].questions[this.questionNumber - 1] = {
+        text: this.text,
+        answer: this.answer
+      };
+      this.$emit("nextQuestion", val);
     }
   }
 };
