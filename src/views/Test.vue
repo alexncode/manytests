@@ -1,13 +1,43 @@
 <template>
-  <div class="container-test">
-    <h1 class="test__name">{{ name }}</h1>
-    <Question v-for='(question, key) in questions' 
-              v-bind:key='key'
-              v-bind:question='question' 
-              v-bind:result="stateResult"
-              @answer='checkAnswer'/>
-    <div class='btn' @click='results'>Result</div>
-  </div>
+  <v-layout class="pa-1">
+    <v-flex 
+      v-if="!stateResult" 
+      xs12 
+      sm6 
+      offset-sm3>
+      <h2 class="mt-3 mb-3">Solve this test!</h2>
+      <v-card 
+        v-for="(question, key) in questions" 
+        :key="key" 
+        class="mb-3">
+        <v-card-title primary-title>
+          {{ question.text }}
+        </v-card-title>
+        <v-card-actions>
+          <v-text-field
+            v-model.number="question.user_answer"
+            color="blue darken-2"
+            label="Answer"
+            required
+          />
+        </v-card-actions>
+      </v-card>
+      <v-btn 
+        flat 
+        color="primary" 
+        @click="getResults">Results</v-btn>
+    </v-flex>
+
+    <v-flex 
+      v-else 
+      xs12 
+      sm6 
+      offset-sm3 >
+      <v-card class="mt-3">
+        {{ results }}
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 
@@ -16,18 +46,18 @@
 import Question from "@/components/Question.vue";
 
 export default {
-  name: "home",
+  name: "Home",
   components: {
     Question
   },
   data() {
     return {
       questions: Array,
-      stateResult: false
+      stateResult: false,
+      results: ""
     };
   },
   created: function() {
-    // const tests = JSON.parse(window.localStorage.getItem("tests"));
     const tests = this.$root.store.tests;
     const slug = this.$route.params.name;
 
@@ -39,37 +69,18 @@ export default {
     checkAnswer: function(val, key) {
       this.answers[key] = val;
     },
-    results: function() {
-      window.localStorage.setItem(
-        "answers",
-        JSON.stringify({ name: this.name, answers: this.answers })
+    getResults: function() {
+      let rightAnswers = this.questions.reduce(
+        (ra, an) => ra + (an.user_answer === an.answer ? 1 : 0),
+        0
       );
-      for (let i = 0; i < this.questions.length; i++) {
-        this.questions[i].user_answer = this.answers[i];
-      }
+      this.results = `You answered right ${rightAnswers} from ${
+        this.questions.length
+      } questions.`;
       this.stateResult = true;
     }
   }
 };
 </script>
 <style lang="scss">
-.container-test {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 1rem;
-  justify-items: center;
-  .test__name {
-    margin: 0;
-  }
-  .btn {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border-radius: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-    margin-bottom: 2rem;
-  }
-  .btn:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
-  }
-}
 </style>

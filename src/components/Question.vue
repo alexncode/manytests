@@ -1,17 +1,23 @@
 <template>
   <div class="question">
-        <div class="question__text">
-        {{ $vnode.key + 1 }}. {{ question.text }}
-        </div>
-        <div class="question__answer" v-if='!result'>
-            <label for="id_answer">Answer: </label>
-            <input type="number" name="answer" id="id_answer" @input="$emit('answer', $event.target.value, $vnode.key)">
-            {{ question.meansurment}}
-        </div>
-        <div v-if='result'>
-          Your answer is {{question.user_answer}} <br>
-          Right answer is {{question.answer}}
-        </div>
+    <div class="question__text">
+      {{ $vnode.key + 1 }}. {{ question.text }}
+    </div>
+    <div 
+      v-if="!result" 
+      class="question__answer">
+      <label for="id_answer">Answer: </label>
+      <input 
+        id="id_answer" 
+        type="number" 
+        name="answer" 
+        @input="$emit('answer', $event.target.value, $vnode.key)">
+      {{ question.meansurment }}
+    </div>
+    <div v-if="result">
+      Your answer is {{ question.user_answer }} <br>
+      Right answer is {{ question.answer }}
+    </div>
   </div>
 </template>
 

@@ -4,17 +4,27 @@
     <!-- Name of the test -->
     <div class="error">{{ error.name }}</div>
     <label for="name">Name</label>
-    <input id='name' type="text" v-model="test.name" @input="validateName">
+    <input 
+      id="name" 
+      v-model="test.name" 
+      type="text" 
+      @input="validateName">
 
     <!-- Description of the test -->
     <div class="error">{{ error.description }}</div>
     <label for="description">Description</label>
-    <textarea id='description' type="text" rows="10" v-model="test.description"></textarea>
+    <textarea 
+      id="description" 
+      v-model="test.description" 
+      type="text" 
+      rows="10"/>
 
     <!-- Type of the test -->
     <div class="error">{{ error.type }}</div>
     <label for="type">Type of test</label>
-    <select id="type" v-model="type">
+    <select 
+      id="type" 
+      v-model="type">
       <option value="numeric">Numeric</option>
       <option value="variant">Variant</option>
     </select>
@@ -22,20 +32,31 @@
     <!-- Number of questions of the test -->
     <div class="error">{{ error.q_number }}</div>
     <label for="q_number">Number of questions</label>
-    <input id='q_number' type="number" v-model.number="test.numberOfQuestions">
+    <input 
+      id="q_number" 
+      v-model.number="test.numberOfQuestions" 
+      type="number">
 
     <!-- Number of answers for each question of the test -->
     <div class="error">{{ error.a_number }}</div>
     <label for="a_number">Number of answers for each</label>
-    <input id='a_number' type="text" v-model.number="test.numberOfAnswers">
+    <input 
+      id="a_number" 
+      v-model.number="test.numberOfAnswers" 
+      type="text">
 
     <!-- Color theme of the test -->
     <div class="error">{{ error.t_color }}</div>
     <label for="t_color">Color theme of test</label>
-    <input id='t_color' type="text" v-model="test.color">
+    <input 
+      id="t_color" 
+      v-model="test.color" 
+      type="text">
 
     <!-- Create button of the test -->
-    <div class="btn" @click="validateForm">Create</div>
+    <div 
+      class="btn" 
+      @click="validateForm">Create</div>
   </div>
 </template>
 

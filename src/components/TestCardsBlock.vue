@@ -1,9 +1,20 @@
 <template>
-  <div class="container">
-    <TestCard v-for='(test, key) in $root.store.tests' 
-              v-bind:key='key' 
-              v-bind:test='test'
-              v-bind:mode='mode'/>
+  <div>
+    <v-card v-for="(test, key) in $root.store.tests" :key="key" class="mb-3 pa-2">
+      <v-card-title primary-title>
+        <h3 class="headline mb-0">{{ test.name }}</h3>
+      </v-card-title>
+      <v-card-text>
+        <div>{{ test.description }}</div>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn v-if="mode === 'show'" :to="'/test/' + test.url" color="light-blue">Solve</v-btn>
+        <div v-else>
+          <v-btn :to="'/update/' + test.url" color="light-blue">Edit</v-btn>
+          <v-btn @click="deleteTest(test.url)" color="light-blue">Delete</v-btn>
+        </div>
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
 
@@ -21,33 +32,15 @@ export default {
       type: String
     }
   },
-  data() {
-    return {
-      tests: Array
-    };
-  },
-  created: function() {
-    // this.tests = JSON.parse(window.localStorage.getItem("tests"));
+  methods: {
+    deleteTest: function(slug) {
+      this.$root.store.deleteTest(slug);
+      this.$forceUpdate();
+    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-.container {
-  width: var(--big-screen);
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-  padding: 1rem;
-  justify-self: center;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
-}
-@media only screen and (max-width: 580px) {
-  .container {
-    width: var(--small-screen);
-    grid-template-columns: 1fr;
-  }
-}
 </style>

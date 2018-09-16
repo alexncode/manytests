@@ -1,32 +1,28 @@
 <template>
-  <div class="home">
-    <Definition/>
-    <TestCardsBlock/>
-  </div>
+  <v-container class="home">
+    <v-flex 
+      xs12 
+      md8 
+      offset-md2 
+      lg6 
+      offset-lg3>
+      <h3>Testing App</h3>
+      <p>Choose test to solve, if there is no test you can create them!</p>
+      <TestCardsBlock/>
+    </v-flex>
+  </v-container>
 </template>
 
 <script>
 // @ is an alias to /src
-import Definition from "@/components/Definition.vue";
 import TestCardsBlock from "@/components/TestCardsBlock.vue";
 
 export default {
-  name: "home",
+  name: "Home",
   components: {
-    Definition,
     TestCardsBlock
   }
 };
 </script>
 <style lang="scss">
-:root {
-  --color-border: rgb(150, 150, 150);
-  --big-screen: 550px;
-  --small-screen: 320px;
-}
-.home {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: 1fr;
-}
 </style>

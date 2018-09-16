@@ -9,36 +9,36 @@
 //  No Unit Tests
 
 <template>
-  <div id="app">
-    <div id="nav">
+  <v-app id="app">
+    <v-toolbar 
+      dark 
+      color="primary">
+      <v-spacer/>
+      <v-toolbar-items>
+        <v-btn 
+          to="/" 
+          flat>Home</v-btn>
+        <v-btn 
+          to="/create" 
+          flat>Create</v-btn>
+        <v-btn 
+          to="/edit" 
+          flat>Edit</v-btn>
+        <v-btn 
+          to="/about" 
+          flat>About</v-btn>
+      </v-toolbar-items>
+      <v-spacer/>
+    </v-toolbar>
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/create">Create</router-link> |
       <router-link to="/edit">Edit</router-link> |
       <router-link to="/about">About</router-link>
-    </div>
+    </div> -->
     <router-view/>
-  </div>
+  </v-app>
 </template>
 
 <style lang="scss">
-body {
-  margin: 0px;
-}
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  text-align: center;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #2196f3;
-    }
-  }
-}
 </style>

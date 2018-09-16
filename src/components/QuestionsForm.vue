@@ -1,8 +1,9 @@
 <template>
   <div class="questions-form">
-    <SQForm :questionNumber='currentQuestion'  
-            :slug='slug'
-            @nextQuestion='nextQuestion'/>
+    <SQForm 
+      :question-number="currentQuestion"  
+      :slug="slug"
+      @nextQuestion="nextQuestion"/>
   </div>
 </template>
 

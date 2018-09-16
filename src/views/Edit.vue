@@ -1,7 +1,14 @@
 <template>
-  <div class="edit">
-    <TestCardsBlock :mode="'edit'" />
-  </div>
+  <v-container class="home">
+    <v-flex 
+      xs12 
+      md8 
+      offset-md2 
+      lg6 
+      offset-lg3>
+      <TestCardsBlock :mode="'edit'" />
+    </v-flex>
+  </v-container>
 </template>
 <script>
 import TestCardsBlock from "@/components/TestCardsBlock.vue";
@@ -13,8 +20,4 @@ export default {
 </script>
 
 <style lang="scss">
-.edit {
-  display: grid;
-  grid-gap: 1rem;
-}
 </style>

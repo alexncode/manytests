@@ -1,13 +1,24 @@
 <template>
   <div class="question-form">
-    <h3 class="question-title">Question {{questionNumber}}</h3>
+    <h3 class="question-title">Question {{ questionNumber }}</h3>
     <label for="question">Question</label>
-    <textarea id='question' type="text" rows="10" v-model="text"></textarea>
+    <textarea 
+      id="question" 
+      v-model="text" 
+      type="text" 
+      rows="10"/>
     <label for="answer">Answer</label>
-    <input id='answer' type="text" v-model="answer">
+    <input 
+      id="answer" 
+      v-model="answer" 
+      type="text">
     <div class="buttons">
-      <div class="btn btn-left" @click="nextQuestion(-1)">Previous</div>
-      <div class="btn btn-right" @click="nextQuestion(1)">Next</div>
+      <div 
+        class="btn btn-left" 
+        @click="nextQuestion(-1)">Previous</div>
+      <div 
+        class="btn btn-right" 
+        @click="nextQuestion(1)">Next</div>
     </div>
   </div>
 </template>
