@@ -1,11 +1,6 @@
 <template>
   <v-container class="home">
-    <v-flex 
-      xs12 
-      md8 
-      offset-md2 
-      lg6 
-      offset-lg3>
+    <v-flex xs12 md8 offset-md2 lg6 offset-lg3>
       <h3>Testing App</h3>
       <p>Choose test to solve, if there is no test you can create them!</p>
       <TestCardsBlock/>

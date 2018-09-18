@@ -133,7 +133,7 @@ export default {
   created() {
     if (this.$route.name === "update") {
       let slug = this.$route.params.name;
-      let test = this.$root.store.tests[slug];
+      let test = this.$root.testsObj[slug];
       this.name = test.name;
       this.description = test.description;
       this.numberOfQuestions = test.numberOfQuestions;
@@ -162,7 +162,7 @@ export default {
     submitQuestions: function() {
       //TODO check all questions for existing
       let slug = slugify(this.name);
-      this.$root.store.tests[slug] = {
+      let test = {
         name: this.name,
         description: this.description,
         url: slug,
@@ -170,6 +170,7 @@ export default {
         color: this.color,
         questions: this.questions
       };
+      this.$root.$firebaseRefs.testsArray.push(test);
       this.progress += 1;
     }
   }

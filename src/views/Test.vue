@@ -1,38 +1,19 @@
 <template>
   <v-layout class="pa-1">
-    <v-flex 
-      v-if="!stateResult" 
-      xs12 
-      sm6 
-      offset-sm3>
+    <v-flex v-if="!stateResult" xs12 sm6 offset-sm3>
       <h2 class="mt-3 mb-3">Solve this test!</h2>
-      <v-card 
-        v-for="(question, key) in questions" 
-        :key="key" 
-        class="mb-3">
+      <v-card v-for="(question, key) in questions" :key="key" class="mb-3">
         <v-card-title primary-title>
-          {{ question.text }}
+          {{ question.question }}
         </v-card-title>
         <v-card-actions>
-          <v-text-field
-            v-model.number="question.user_answer"
-            color="blue darken-2"
-            label="Answer"
-            required
-          />
+          <v-text-field v-model.number="question.user_answer" color="blue darken-2" label="Answer" required />
         </v-card-actions>
       </v-card>
-      <v-btn 
-        flat 
-        color="primary" 
-        @click="getResults">Results</v-btn>
+      <v-btn flat color="primary" @click="getResults">Results</v-btn>
     </v-flex>
 
-    <v-flex 
-      v-else 
-      xs12 
-      sm6 
-      offset-sm3 >
+    <v-flex v-else xs12 sm6 offset-sm3>
       <v-card class="mt-3">
         {{ results }}
       </v-card>
@@ -58,11 +39,10 @@ export default {
     };
   },
   created: function() {
-    const tests = this.$root.store.tests;
     const slug = this.$route.params.name;
-
-    this.name = tests[slug].name;
-    this.questions = tests[slug].questions;
+    const tests = this.$root.testsObj[slug];
+    this.name = tests.name;
+    this.questions = tests.questions;
     this.answers = Array(this.questions.length);
   },
   methods: {
