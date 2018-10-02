@@ -1,4 +1,6 @@
-# vue-anchor-test
+# Manytest App
+CRUD App for creating quizes made with Vue.js and Vuetify
+[Live Demo](https://hungry-swanson-f21d9c.netlify.com/)
 
 ## Project setup
 ```
